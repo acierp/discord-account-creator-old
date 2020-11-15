@@ -1,6 +1,7 @@
 import os
 try:
   import seldiscord
+  import selrequests
 except:
   os.system('pip install -U git+https://github.com/h0nde/sel-requests.git')
   os.system('pip install -U git+https://github.com/h0nde/sel-discord.git')
