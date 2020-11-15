@@ -30,13 +30,6 @@ useragents = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHT
 avatars = []
 imagestoencode = []
 
-def getName(afile):
-    line = next(afile)
-    for num, aline in enumerate(afile, 2):
-      if random.randrange(num): continue
-      line = aline
-    return line
-
 def getDirectory():   
   mypath = os.getcwd()
 
@@ -281,8 +274,7 @@ ____ ____ ____ ____ ___ ____ ____
 [1] Create discord accounts
 [2] Create accounts and join a discord server
 [3] Create accounts with real profile pictures and names
-[4] Set online and random status
-[5] Verify tokens in tokens.txt\n''')
+[4] Set online and random status\n''')
 choice = input('Choice: ')
 
 if "1" in choice:
