@@ -83,30 +83,6 @@ def noramlizeName(token, proxy):
     print('Successfully updated avatar')
   else:
     print(f'Failed to update avatar. Account most likely has a password attached. {r.status_code}')
-  
-def getVerificationUrl(name, domain, id, name2):
-    try:
-        r = req.get(f"https://www.1secmail.com/api/v1/?action=readMessage&login={name}&domain={domain}&id={id}")
-        body = r.json()['body']
-        vericationurl = body.split('href="')[1].split('"')[0]
-        ticket = vericationurl.split("ticket=")[1]
-        #verifyEmail(ticket, name2, domain, name)
-        print(f"Fetched Verification Ticket: {ticket}")
-    except Exception as e:
-        while Exception:
-            r = req.get(f"https://www.1secmail.com/api/v1/?action=readMessage&login={name}&domain={domain}&id={id}")
-            body = r.json()['body']
-            vericationurl = body.split('href="')[1].split('"')[0]
-            ticket = vericationurl.split("ticket=")[1]
-            #verifyEmail(ticket, name2, domain, name)
-            print(f"Fetched Verification Ticket: {ticket}")
-
-def CheckInbox(name, domain, name2):
-    time.sleep(4)
-    r = req.get(f'https://www.1secmail.com/api/v1/?action=getMessages&login={name}&domain={domain}')
-    id = r.json()[0]['id']
-    print(f"Checked Inbox | Email: {name}{domain}")
-    getVerificationUrl(name, domain, id, name2)
 
 def setPassword(token, proxy):
   data = {
@@ -123,23 +99,6 @@ def setPassword(token, proxy):
     return accountpassword
   else:
     print('Account is banned or is locked.')
-
-def createEmail(password):
-    req = requests.Session()
-    r = req.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1")
-    email = r.text.split('["')[1].split('"]')[0]
-    name = email.split("@")[0]
-    domain = email.split("@")[1]
-    if domain == "esiix.com":
-        threading.Thread(target=sendemailVerify, args=[email, password, name, domain]).start()
-    else:
-        while domain != "esiix.com":
-            r = req.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1")
-            email = r.text.split('["')[1].split('"]')[0]
-            name = email.split("@")[0]
-            domain = email.split("@")[1]
-            if domain == "esiix.com":
-                threading.Thread(target=sendemailVerify, args=[email, password, name, domain]).start()
 
 def statusSet(token, proxy):
   statustoset = random.choice(statuslis)
